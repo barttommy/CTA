@@ -9,7 +9,6 @@
 import Foundation
 
 var train_data = [Route]()
-var requested_data = [Route]()
 
 enum `Type` : String {
     case brownLoop = "brownLoop"

@@ -15,7 +15,7 @@
             0.4. Fix cell ordering - has to do with the way data is stored and the indexing when cell is created (Done)
         1. Location services instead of hardcoded map id (Not started)
         2. Work for all train services, not just brown and purple (In progress)
-        3. Build out a "selector" in which a user can choose a specific station manually and have the app refresh with the according data
+        3. Build out a "selector" in which a user can choose a specific station manually and have the app refresh with the according data (In progress)
     Station Id Numbers:
         "40530" Diversy
         "40380" Clark & Lake
@@ -25,9 +25,11 @@
 
 import UIKit
 
-class TableTableViewController: UITableViewController {
+class TrainTableViewController: UITableViewController {
     
     @IBOutlet var trainTableView: UITableView!
+    
+    var requestedStation = "Fullerton" // Default, this will change to closest station when I implement location services
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -53,7 +55,7 @@ class TableTableViewController: UITableViewController {
     }
     
     func getTrainArrivalData () {
-        let requestedStation = "Fullerton" // This will become dynamic
+        train_data.removeAll()
         let apiKey = "73436616b5af4465bc65790aa9d4886c"
         let mapId = ""
         let jsonURLString = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=\(apiKey)&mapid=\(mapId)&=40530&outputType=JSON"
@@ -71,7 +73,7 @@ class TableTableViewController: UITableViewController {
                         if index > -1 {
                             train_data[index].etas.append(eta)
                         } else {
-                            if route.station == requestedStation {
+                            if route.station == self.requestedStation {
                                 train_data.append(route)
                             }
                         }
@@ -113,7 +115,6 @@ class TableTableViewController: UITableViewController {
     }
     
     @IBAction func refreshPressed(_ sender: UIBarButtonItem) {
-        train_data.removeAll()
         getTrainArrivalData()
         self.tableView.reloadData()
     }

@@ -14,8 +14,9 @@
 		65D7416E227D09C0004249C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65D7416C227D09C0004249C5 /* LaunchScreen.storyboard */; };
 		65D74179227D09C0004249C5 /* CTA_Train_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D74178227D09C0004249C5 /* CTA_Train_TrackerTests.swift */; };
 		65D74184227D09C0004249C5 /* CTA_Train_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D74183227D09C0004249C5 /* CTA_Train_TrackerUITests.swift */; };
-		65D74192227D1130004249C5 /* TableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D74191227D1130004249C5 /* TableTableViewController.swift */; };
+		65D74192227D1130004249C5 /* TrainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D74191227D1130004249C5 /* TrainTableViewController.swift */; };
 		65D741CE227E51CA004249C5 /* TrainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D741CD227E51CA004249C5 /* TrainData.swift */; };
+		65F41ED422F8D51100FD6FB2 /* BrownLineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F41ED322F8D51100FD6FB2 /* BrownLineTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +50,9 @@
 		65D7417F227D09C0004249C5 /* CTA Train TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CTA Train TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D74183227D09C0004249C5 /* CTA_Train_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTA_Train_TrackerUITests.swift; sourceTree = "<group>"; };
 		65D74185227D09C0004249C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65D74191227D1130004249C5 /* TableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
+		65D74191227D1130004249C5 /* TrainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTableViewController.swift; sourceTree = "<group>"; };
 		65D741CD227E51CA004249C5 /* TrainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainData.swift; sourceTree = "<group>"; };
+		65F41ED322F8D51100FD6FB2 /* BrownLineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrownLineTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 				65D74163227D09BE004249C5 /* AppDelegate.swift */,
 				65D74165227D09BE004249C5 /* ViewController.swift */,
 				65D74167227D09BE004249C5 /* Main.storyboard */,
-				65D74191227D1130004249C5 /* TableTableViewController.swift */,
+				65F41ED322F8D51100FD6FB2 /* BrownLineTableViewController.swift */,
+				65D74191227D1130004249C5 /* TrainTableViewController.swift */,
 				65D741CD227E51CA004249C5 /* TrainData.swift */,
 				65D7416A227D09C0004249C5 /* Assets.xcassets */,
 				65D7416C227D09C0004249C5 /* LaunchScreen.storyboard */,
@@ -262,8 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F41ED422F8D51100FD6FB2 /* BrownLineTableViewController.swift in Sources */,
 				65D74166227D09BE004249C5 /* ViewController.swift in Sources */,
-				65D74192227D1130004249C5 /* TableTableViewController.swift in Sources */,
+				65D74192227D1130004249C5 /* TrainTableViewController.swift in Sources */,
 				65D741CE227E51CA004249C5 /* TrainData.swift in Sources */,
 				65D74164227D09BE004249C5 /* AppDelegate.swift in Sources */,
 			);
