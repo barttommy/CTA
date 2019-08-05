@@ -8,14 +8,19 @@
      CTA API:
         https://www.transitchicago.com/developers/traintracker/
      TODO:
-        0. Develop prototype for Diversy (In progress)
-            0.1. Fix minutes issue for < 1 minute
-            0.2. Refresh button "loading" indicator?
-            0.3. Incorporate stop / direction into table cell
-                - Will have to rework train_data
-            0.4. Fix cell ordering - has to do with the way data is stored and the indexing when cell is created
-        1. Location services instead of hardcoded map id
-        2. Work for all train services, not just brown and purple
+        0. Develop prototype for Diversy (Done)
+            0.1. Fix timing bugs (In progress)
+            0.2. Refresh button "loading" indicator / animation? (In progress)
+            0.3. Incorporate stop / direction into table cell (Done)
+            0.4. Fix cell ordering - has to do with the way data is stored and the indexing when cell is created (Done)
+        1. Location services instead of hardcoded map id (Not started)
+        2. Work for all train services, not just brown and purple (In progress)
+        3. Build out a "selector" in which a user can choose a specific station manually and have the app refresh with the according data
+    Station Id Numbers:
+        "40530" Diversy
+        "40380" Clark & Lake
+        "41220" Fullerton
+        ""      Every station
  */
 
 import UIKit
@@ -48,12 +53,10 @@ class TableTableViewController: UITableViewController {
     }
     
     func getTrainArrivalData () {
+        let requestedStation = "Fullerton" // This will become dynamic
         let apiKey = "73436616b5af4465bc65790aa9d4886c"
-        // Pick station through another table view? List of stations and it will go with selected one?
-        //let mapId = "40530" //diversy
-        //let mapId = "40380" //Clark & Lake, blue, brown, green, orange, purple, pink
-        let mapId = "41220" //fullerton
-        let jsonURLString = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key="+apiKey+"&mapid="+mapId+"&=40530&outputType=JSON"
+        let mapId = ""
+        let jsonURLString = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=\(apiKey)&mapid=\(mapId)&=40530&outputType=JSON"
         guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) {(data, response, err) in
             guard let data = data else { return }
@@ -68,7 +71,9 @@ class TableTableViewController: UITableViewController {
                         if index > -1 {
                             train_data[index].etas.append(eta)
                         } else {
-                            train_data.append(route)
+                            if route.station == requestedStation {
+                                train_data.append(route)
+                            }
                         }
                     }
                 }
@@ -91,8 +96,10 @@ class TableTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Alternative.. (and better?) approach... load all data then edit functionality here based on selected station stop
         train_data.sort(by: {$0.type.rawValue < $1.type.rawValue})
         let route = train_data[indexPath.row]
+        //let route = requested_data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: route.type.rawValue, for: indexPath)
         cell.textLabel?.text = route.station
         cell.detailTextLabel?.numberOfLines = 0
