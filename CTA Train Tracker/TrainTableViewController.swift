@@ -98,10 +98,8 @@ class TrainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Alternative.. (and better?) approach... load all data then edit functionality here based on selected station stop
         train_data.sort(by: {$0.type.rawValue < $1.type.rawValue})
         let route = train_data[indexPath.row]
-        //let route = requested_data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: route.type.rawValue, for: indexPath)
         cell.textLabel?.text = route.station
         cell.detailTextLabel?.numberOfLines = 0
@@ -128,6 +126,25 @@ class TrainTableViewController: UITableViewController {
         return -1
     }
     
+    /*
+     case brownLoop = "brownLoop"
+     case brownKimbal = "brownKimbal"
+     case purpleLoop = "purpleLoop"
+     case purpleLinden = "purpleLinden"
+     case redHoward = "redHoward"
+     case red95th = "red95th"
+     case blueForest = "blueForest" //Blue, Forest Park
+     case blueLoop = "blueOhare" // Blue, O'Hare
+     case greenAshland = "greenAshland" // G, Ashland/63rd
+     case greenHarlem = "greenHarlem" // G, Harlem/Lake
+     case greenCottage = "greenCottage" // G, Cottage Grove
+     case orangeMidway = "orangeMidway" // Org, Midway
+     case orangeLoop = "orangeLoop" // Org, Loop
+     case pinkCermak = "pinkCermak" //Pink, 54th/Cermak
+     case pinkLoop = "pinkLoop"
+     case unknown = "unknown"
+     */
+    
     func getTrainType (line: String, destination: String) -> Type {
         var type : Type
         if line == "Brn" && destination == "Loop" {
@@ -142,6 +159,24 @@ class TrainTableViewController: UITableViewController {
             type = .redHoward
         } else if line == "Red" && destination == "95th/Dan Ryan" {
             type = .red95th
+        } else if line == "Blue" && destination == "Forest Park" {
+            type = .blueForest
+        } else if line == "Blue" && destination == "O'Hare" {
+            type = .blueOhare
+        } else if line == "G" && destination == "Ashland/63rd" {
+            type = .greenAshland
+        } else if line == "G" && destination == "Harlem/Lake" {
+            type = .greenHarlem
+        } else if line == "G" && destination == "Cottage Grove" {
+            type = .greenCottage
+        } else if line == "Org" && destination == "Midway" {
+            type = .orangeMidway
+        } else if line == "Org" && destination == "Loop" {
+            type = .orangeLoop
+        } else if line == "Pink" && destination == "54th/Cermak" {
+            type = .pinkCermak
+        } else if line == "Pink" && destination == "Loop" {
+            type = .pinkLoop
         } else {
             type = .unknown
         }

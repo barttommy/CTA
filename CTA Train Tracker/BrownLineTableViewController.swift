@@ -8,12 +8,18 @@
 
 import UIKit
 
-let brownStations = ["Fullerton", "Clark/Lake", "Kimball"]
-
-class BrownLineTableViewController: UITableViewController {
-
+class BrownLineTableViewController: UITableViewController, UISearchBarDelegate {
+    
+    @IBOutlet var stationsTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    let brownStations = ["Fullerton", "Clark/Lake", "Kimball", "Southport", "Diversey"]
+    var filteredStations = [String]()
+    var searching = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -21,21 +27,60 @@ class BrownLineTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searching {
+            return filteredStations.count
+        }
         return brownStations.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let station = brownStations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "brown", for: indexPath)
+        let station : String
+        if searching {
+            station = filteredStations[indexPath.row]
+        } else {
+            station = brownStations[indexPath.row]
+        }
         cell.textLabel?.text = station
         return cell
+    }
+    
+    func searchBar (_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+            searching = false
+            view.endEditing(true)
+            stationsTableView.reloadData()
+        } else {
+            searching = true
+            filteredStations = brownStations.filter({$0.lowercased().contains(searchText.lowercased())})
+            stationsTableView.reloadData()
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let trainViewController = segue.destination as? TrainTableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                trainViewController.requestedStation = brownStations[indexPath.row]
+                let requestedStation : String
+                if searching {
+                    requestedStation = filteredStations[indexPath.row]
+                } else {
+                    requestedStation = brownStations[indexPath.row]
+                }
+                trainViewController.requestedStation = requestedStation
             }
         }
     }
